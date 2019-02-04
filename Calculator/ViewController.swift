@@ -40,23 +40,23 @@ class ViewController: UIViewController {
             
             if sender.tag == 12 //Divide
             {
-                label.text = "÷"
+                label.text = label.text! + "÷"
             }
             else if sender.tag == 13 //Multiply
             {
-                label.text = "×"
+                label.text = label.text! + "×"
             }
             else if sender.tag == 14 //Minus
             {
-                label.text = "−"
+                label.text = label.text! + "−"
             }
             else if sender.tag == 15 //Plus
             {
-                label.text = "+"
+                label.text = label.text! + "+"
             }
             
             operation = sender.tag
-            performingMath = true;
+            performingMath = true
         }
         else if sender.tag == 16
         {
