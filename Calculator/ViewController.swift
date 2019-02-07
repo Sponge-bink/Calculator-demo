@@ -9,94 +9,125 @@
 import UIKit
 
 class ViewController: UIViewController {
-    
-    var numberOnScreen: Double = 0
-    var previousNumber: Double = 0
-    var performingMath = false
-    var operation = 0
-    
-    @IBOutlet weak var label: UILabel!
-    
-    @IBAction func numbers(_ sender: UIButton)
-    {
-        if performingMath == true
-        {
-            label.text = String(sender.tag - 1)
-            numberOnScreen = Double(label.text!)!
-            performingMath = false
-        }
-        else
-        {
-            label.text = label.text! + String(sender.tag - 1)
-            numberOnScreen = Double(label.text!)!
-        }
-    }
-    
-    @IBAction func buttons(_ sender: UIButton)
-    {
-        if label.text != "" && sender.tag != 11 && sender.tag != 16
-        {
-            previousNumber = Double(label.text!)!
-            
-            if sender.tag == 12 //Divide
-            {
-                label.text = label.text! + "÷"
-            }
-            else if sender.tag == 13 //Multiply
-            {
-                label.text = label.text! + "×"
-            }
-            else if sender.tag == 14 //Minus
-            {
-                label.text = label.text! + "−"
-            }
-            else if sender.tag == 15 //Plus
-            {
-                label.text = label.text! + "+"
-            }
-            
-            operation = sender.tag
-            performingMath = true
-        }
-        else if sender.tag == 16
-        {
-            if operation == 12
-            {
-                label.text = String(previousNumber / numberOnScreen)
-            }
-            else if operation == 13
-            {
-                label.text = String(previousNumber * numberOnScreen)
-            }
-            else if operation == 14
-            {
-                label.text = String(previousNumber - numberOnScreen)
-            }
-            else if operation == 15
-            {
-                label.text = String(previousNumber + numberOnScreen)
-            }
-        }
-        else if sender.tag == 11
-        {
-            label.text = ""
-            previousNumber = 0
-            numberOnScreen = 0
-            operation = 0
-        }
-    }
-    
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
     }
     
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    var stringOnScreen: String? {
+        didSet {
+//            if isDouble {
+                display.text = String(numberOnScreen)
+//            } else {
+//                display.text = String(Int(stringOnScreen!)!)
+//            }
+        }
     }
     
+    var numberOnScreen: Double = 0.0 {
+        didSet {
+//            if !isResult ,numberOnScreen == Double(Int(numberOnScreen)) {
+//                stringOnScreen = String(Int(numberOnScreen))
+//            } else {
+                stringOnScreen = String(numberOnScreen)
+//            }
+        }
+    }
     
+    var previousNumberOrResult: Double?
+    
+    var isResult: Bool = true
+
+    var isCalculating: Bool = false
+    
+    var isDouble: Bool = false
+    
+    var isRightAfterPoint = false
+    
+    var operation: String?
+    
+    @IBOutlet weak var display: UILabel!
+    
+    @IBAction func numberButtons(_ sender: UIButton) {
+        if isResult,!isDouble {
+            isResult = false
+            numberOnScreen = Double(sender.currentTitle!)!
+        } else if isResult, isDouble {
+            isResult = false
+            numberOnScreen = 0.0 + Double(sender.currentTitle!)! / 10
+        } else if !isResult, isDouble {
+            if isRightAfterPoint {
+                numberOnScreen = numberOnScreen + Double(sender.currentTitle!)! / 10
+                isRightAfterPoint = false
+            } else {
+                numberOnScreen = Double(String(numberOnScreen) + sender.currentTitle!)!
+            }
+        } else if !isResult, !isDouble {
+            numberOnScreen = Double(String(Int(numberOnScreen)) + sender.currentTitle!)!
+        }
+    }
+    
+    @IBAction func fundamentalOperations(_ sender: UIButton) {
+        var newOperation: String = ""
+        switch sender.currentTitle {
+            case "×": newOperation = "Multiply"
+            case "−": newOperation = "Minus"
+            case "+": newOperation = "Plus"
+            case "÷": newOperation = "Divide"
+            default: break
+        }
+        if operation != nil {
+            if operation! == "Multiply" {
+                numberOnScreen = previousNumberOrResult! * numberOnScreen
+            } else if operation! == "Minus" {
+                numberOnScreen = previousNumberOrResult! - numberOnScreen
+            } else if operation! == "Plus" {
+                numberOnScreen = previousNumberOrResult! + numberOnScreen
+            } else if operation! == "Divide" {
+                numberOnScreen = previousNumberOrResult! / numberOnScreen
+            }        }
+        previousNumberOrResult = numberOnScreen
+        isResult = true
+        isCalculating = true
+        isDouble = false
+        isRightAfterPoint = false
+        operation = newOperation
+    }
+    
+    @IBAction func clear(_ sender: UIButton) {
+        previousNumberOrResult = nil
+        numberOnScreen = 0.0
+        isResult = true
+        isCalculating = false
+        isDouble = false
+        isRightAfterPoint = false
+        operation = nil
+    }
+    
+    @IBAction func equals(_ sender: UIButton) {
+        isResult = true
+        if operation != nil {
+            if operation! == "Multiply" {
+                numberOnScreen = previousNumberOrResult! * numberOnScreen
+            } else if operation! == "Plus" {
+                numberOnScreen = previousNumberOrResult! + numberOnScreen
+            } else if operation! == "Divide" {
+                numberOnScreen = previousNumberOrResult! / numberOnScreen
+            } else if operation! == "Minus" {
+                numberOnScreen = previousNumberOrResult! - numberOnScreen
+            }
+            previousNumberOrResult = numberOnScreen
+        } else {
+            
+        }
+        operation = nil
+    }
+    
+    @IBAction func decimalPoint(_ sender: UIButton) {
+        isDouble = true
+        isRightAfterPoint = true
+        
+    }
 }
 
