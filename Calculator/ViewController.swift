@@ -17,8 +17,13 @@ class ViewController: UIViewController {
     
     var stringOnScreen: String? {
         didSet {
+//            if isResult, numberOnScreen == Double(Int(numberOnScreen)) {
+//                display.text = String(Int(numberOnScreen))
+//            } else if isDouble, isRightAfterPoint {
+//
+//            }
 //            if isDouble {
-                display.text = String(numberOnScreen)
+                display.text = stringOnScreen
 //            } else {
 //                display.text = String(Int(stringOnScreen!)!)
 //            }
@@ -39,7 +44,7 @@ class ViewController: UIViewController {
     
     var isResult: Bool = true
 
-    var isCalculating: Bool = false
+//    var isCalculating: Bool = false
     
     var isDouble: Bool = false
     
@@ -86,10 +91,11 @@ class ViewController: UIViewController {
                 numberOnScreen = previousNumberOrResult! + numberOnScreen
             } else if operation! == "Divide" {
                 numberOnScreen = previousNumberOrResult! / numberOnScreen
-            }        }
+            }
+        }
         previousNumberOrResult = numberOnScreen
         isResult = true
-        isCalculating = true
+//        isCalculating = true
         isDouble = false
         isRightAfterPoint = false
         operation = newOperation
@@ -99,7 +105,7 @@ class ViewController: UIViewController {
         previousNumberOrResult = nil
         numberOnScreen = 0.0
         isResult = true
-        isCalculating = false
+//        isCalculating = false
         isDouble = false
         isRightAfterPoint = false
         operation = nil
@@ -119,7 +125,7 @@ class ViewController: UIViewController {
             }
             previousNumberOrResult = numberOnScreen
         } else {
-            
+            // something supposed to be done here?
         }
         operation = nil
     }
@@ -127,7 +133,10 @@ class ViewController: UIViewController {
     @IBAction func decimalPoint(_ sender: UIButton) {
         isDouble = true
         isRightAfterPoint = true
-        
+        // something supposed to be done here?
     }
+//    @IBAction func minusOrNot(_ sender: UIButton) {
+//        numberOnScreen = -numberOnScreen
+//    }
 }
 
