@@ -103,7 +103,7 @@
                                     <color key="titleShadowColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
                                 <connections>
-                                    <action selector="fundamentalOperations:" destination="BYZ-38-t0r" eventType="touchUpInside" id="g74-ny-fUE"/>
+                                    <action selector="fundamentalOperationButtons:" destination="BYZ-38-t0r" eventType="touchUpInside" id="g74-ny-fUE"/>
                                 </connections>
                             </button>
                             <button opaque="NO" tag="5" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Bp6-ny-81r">
@@ -155,7 +155,7 @@
                                     <color key="titleShadowColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
                                 <connections>
-                                    <action selector="fundamentalOperations:" destination="BYZ-38-t0r" eventType="touchUpInside" id="mm2-cw-itw"/>
+                                    <action selector="fundamentalOperationButtons:" destination="BYZ-38-t0r" eventType="touchUpInside" id="mm2-cw-itw"/>
                                 </connections>
                             </button>
                             <button opaque="NO" tag="8" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9cd-2b-7K0">
@@ -207,7 +207,7 @@
                                     <color key="titleShadowColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
                                 <connections>
-                                    <action selector="fundamentalOperations:" destination="BYZ-38-t0r" eventType="touchUpInside" id="UAS-s8-n7P"/>
+                                    <action selector="fundamentalOperationButtons:" destination="BYZ-38-t0r" eventType="touchUpInside" id="UAS-s8-n7P"/>
                                 </connections>
                             </button>
                             <button opaque="NO" tag="11" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="J5d-zk-aRZ">
@@ -256,10 +256,10 @@
                                     <color key="titleShadowColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
                                 <connections>
-                                    <action selector="fundamentalOperations:" destination="BYZ-38-t0r" eventType="touchUpInside" id="eXF-2S-PuU"/>
+                                    <action selector="fundamentalOperationButtons:" destination="BYZ-38-t0r" eventType="touchUpInside" id="eXF-2S-PuU"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5A8-RF-MBr">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="5A8-RF-MBr">
                                 <rect key="frame" x="8" y="70" width="359" height="100"/>
                                 <constraints>
                                     <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="100" id="qIH-Kv-pUD"/>

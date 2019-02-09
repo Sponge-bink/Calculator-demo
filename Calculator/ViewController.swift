@@ -44,7 +44,7 @@ class ViewController: UIViewController {
     
     var isResult: Bool = true
 
-//    var isCalculating: Bool = false
+    var isCalculating: Bool = false
     
     var isDouble: Bool = false
     
@@ -55,6 +55,7 @@ class ViewController: UIViewController {
     @IBOutlet weak var display: UILabel!
     
     @IBAction func numberButtons(_ sender: UIButton) {
+        isCalculating = false
         if isResult,!isDouble {
             isResult = false
             numberOnScreen = Double(sender.currentTitle!)!
@@ -73,39 +74,50 @@ class ViewController: UIViewController {
         }
     }
     
-    @IBAction func fundamentalOperations(_ sender: UIButton) {
+    @IBAction func fundamentalOperationButtons(_ sender: UIButton) {
         var newOperation: String = ""
-        switch sender.currentTitle {
+        
+        if !isCalculating {
+            switch sender.currentTitle {
             case "×": newOperation = "Multiply"
             case "−": newOperation = "Minus"
             case "+": newOperation = "Plus"
             case "÷": newOperation = "Divide"
             default: break
-        }
-        if operation != nil {
-            if operation! == "Multiply" {
-                numberOnScreen = previousNumberOrResult! * numberOnScreen
-            } else if operation! == "Minus" {
-                numberOnScreen = previousNumberOrResult! - numberOnScreen
-            } else if operation! == "Plus" {
-                numberOnScreen = previousNumberOrResult! + numberOnScreen
-            } else if operation! == "Divide" {
-                numberOnScreen = previousNumberOrResult! / numberOnScreen
+            }
+            if operation != nil {
+                if operation! == "Multiply" {
+                    numberOnScreen = previousNumberOrResult! * numberOnScreen
+                } else if operation! == "Minus" {
+                    numberOnScreen = previousNumberOrResult! - numberOnScreen
+                } else if operation! == "Plus" {
+                    numberOnScreen = previousNumberOrResult! + numberOnScreen
+                } else if operation! == "Divide" {
+                    numberOnScreen = previousNumberOrResult! / numberOnScreen
+                }
+            }
+            isCalculating = true
+            previousNumberOrResult = numberOnScreen
+            isResult = true
+            isDouble = false
+            isRightAfterPoint = false
+            operation = newOperation
+        } else {
+            switch sender.currentTitle {
+                case "×": operation = "Multiply"
+                case "−": operation = "Minus"
+                case "+": operation = "Plus"
+                case "÷": operation = "Divide"
+                default: break
             }
         }
-        previousNumberOrResult = numberOnScreen
-        isResult = true
-//        isCalculating = true
-        isDouble = false
-        isRightAfterPoint = false
-        operation = newOperation
     }
     
     @IBAction func clear(_ sender: UIButton) {
         previousNumberOrResult = nil
         numberOnScreen = 0.0
         isResult = true
-//        isCalculating = false
+        isCalculating = false
         isDouble = false
         isRightAfterPoint = false
         operation = nil
@@ -131,6 +143,7 @@ class ViewController: UIViewController {
     }
     
     @IBAction func decimalPoint(_ sender: UIButton) {
+        isCalculating = false
         isDouble = true
         isRightAfterPoint = true
         // something supposed to be done here?
