@@ -12,38 +12,42 @@ class ViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        display.text = "0"
         // Do any additional setup after loading the view, typically from a nib.
     }
     
-    var stringOnScreen: String? {
+    var stringOnScreen: String? = "0" {
         didSet {
-//            if isResult, numberOnScreen == Double(Int(numberOnScreen)) {
-//                display.text = String(Int(numberOnScreen))
-//            } else if isDouble, isRightAfterPoint {
-//
-//            }
-//            if isDouble {
+            if isResult, numberOnScreen == Double(Int(numberOnScreen)) {
+                display.text = String(Int(numberOnScreen))
+            }
+                //            else if isDouble, isRightAfterPoint {
+                //                display.text = stringOnScreen! + "."
+                //            }
+            else if isResult {
                 display.text = stringOnScreen
-//            } else {
-//                display.text = String(Int(stringOnScreen!)!)
-//            }
+            }
+            else if isDouble {
+                display.text = stringOnScreen
+            } else {
+                display.text = String(Int(numberOnScreen))
+            }
+            // really messy around here…
         }
     }
     
+    //test message
+    
     var numberOnScreen: Double = 0.0 {
         didSet {
-//            if !isResult ,numberOnScreen == Double(Int(numberOnScreen)) {
-//                stringOnScreen = String(Int(numberOnScreen))
-//            } else {
-                stringOnScreen = String(numberOnScreen)
-//            }
+            stringOnScreen = String(numberOnScreen)
         }
     }
     
     var previousNumberOrResult: Double?
     
     var isResult: Bool = true
-
+    
     var isCalculating: Bool = false
     
     var isDouble: Bool = false
@@ -79,11 +83,11 @@ class ViewController: UIViewController {
         
         if !isCalculating {
             switch sender.currentTitle {
-            case "×": newOperation = "Multiply"
-            case "−": newOperation = "Minus"
-            case "+": newOperation = "Plus"
-            case "÷": newOperation = "Divide"
-            default: break
+                case "×": newOperation = "Multiply"
+                case "−": newOperation = "Minus"
+                case "+": newOperation = "Plus"
+                case "÷": newOperation = "Divide"
+                default: break
             }
             if operation != nil {
                 if operation! == "Multiply" {
@@ -114,9 +118,9 @@ class ViewController: UIViewController {
     }
     
     @IBAction func clear(_ sender: UIButton) {
+        isResult = true
         previousNumberOrResult = nil
         numberOnScreen = 0.0
-        isResult = true
         isCalculating = false
         isDouble = false
         isRightAfterPoint = false
@@ -143,9 +147,13 @@ class ViewController: UIViewController {
     }
     
     @IBAction func decimalPoint(_ sender: UIButton) {
+        if isCalculating {
+            numberOnScreen = 0.0 // Is this OK?
+        }
         isCalculating = false
         isDouble = true
         isRightAfterPoint = true
+        isResult = false
         // something supposed to be done here?
     }
 //    @IBAction func minusOrNot(_ sender: UIButton) {
