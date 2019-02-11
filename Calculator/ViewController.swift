@@ -144,6 +144,7 @@ class ViewController: UIViewController {
             // something supposed to be done here?
         }
         operation = nil
+        isDouble = false
     }
     
     @IBAction func decimalPoint(_ sender: UIButton) {
