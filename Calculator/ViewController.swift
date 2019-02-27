@@ -148,13 +148,15 @@ class ViewController: UIViewController {
     }
     
     @IBAction func decimalPoint(_ sender: UIButton) {
-        if isCalculating {
-            numberOnScreen = 0.0 // Is this OK?
+        if isResult || (!isResult && !isDouble) {
+            if isCalculating {
+                numberOnScreen = 0.0 // Is this OK?
+            }
+            isCalculating = false
+            isDouble = true
+            isRightAfterPoint = true
+            isResult = false
         }
-        isCalculating = false
-        isDouble = true
-        isRightAfterPoint = true
-        isResult = false
         // something supposed to be done here?
     }
 //    @IBAction func minusOrNot(_ sender: UIButton) {
