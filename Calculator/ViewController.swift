@@ -36,8 +36,6 @@ class ViewController: UIViewController {
         }
     }
     
-    //test message
-    
     var numberOnScreen: Double = 0.0 {
         didSet {
             stringOnScreen = String(numberOnScreen)
@@ -71,7 +69,7 @@ class ViewController: UIViewController {
                 numberOnScreen = numberOnScreen + Double(sender.currentTitle!)! / 10
                 isRightAfterPoint = false
             } else {
-                numberOnScreen = Double(String(numberOnScreen) + sender.currentTitle!)!
+                stringOnScreen = stringOnScreen! + sender.currentTitle!
             }
         } else if !isResult, !isDouble {
             numberOnScreen = Double(String(Int(numberOnScreen)) + sender.currentTitle!)!
@@ -79,6 +77,9 @@ class ViewController: UIViewController {
     }
     
     @IBAction func fundamentalOperationButtons(_ sender: UIButton) {
+        if !isResult, isDouble {
+            numberOnScreen = Double(stringOnScreen!)!
+        }
         var newOperation: String = ""
         
         if !isCalculating {
@@ -100,9 +101,9 @@ class ViewController: UIViewController {
                     numberOnScreen = previousNumberOrResult! / numberOnScreen
                 }
             }
+            isResult = true
             isCalculating = true
             previousNumberOrResult = numberOnScreen
-            isResult = true
             isDouble = false
             isRightAfterPoint = false
             operation = newOperation
@@ -128,6 +129,9 @@ class ViewController: UIViewController {
     }
     
     @IBAction func equals(_ sender: UIButton) {
+        if !isResult, isDouble {
+            numberOnScreen = Double(stringOnScreen!)!
+        }
         isResult = true
         if operation != nil {
             if operation! == "Multiply" {
