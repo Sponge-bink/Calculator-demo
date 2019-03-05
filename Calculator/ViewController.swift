@@ -81,9 +81,12 @@ class ViewController: UIViewController {
         if !isResult, isDouble {
             numberOnScreen = Double(stringOnScreen!)!
         }
+        // inputing double will be handled by adding directly to stringOnString, and end with fundamentalOperationButtons or equals etc
+        
         var newOperation: String = ""
         
         if !isCalculating {
+            // no need to do operation correction
             switch sender.currentTitle {
                 case "×": newOperation = "Multiply"
                 case "−": newOperation = "Minus"
@@ -92,6 +95,7 @@ class ViewController: UIViewController {
                 default: break
             }
             if operation != nil {
+                // not the first operation in a equation, do math with the old operation
                 if operation! == "Multiply" {
                     numberOnScreen = previousNumberOrResult! * numberOnScreen
                 } else if operation! == "Minus" {
@@ -108,7 +112,9 @@ class ViewController: UIViewController {
             isDouble = false
             isRightAfterDecimalPoint = false
             operation = newOperation
+            // record the newly pressed button to be used next time. used in long equations
         } else {
+            // fundamentalOperationButtons pushed when isCalculating == true. operation correction, by pressing the correct button right after the wrong one
             switch sender.currentTitle {
                 case "×": operation = "Multiply"
                 case "−": operation = "Minus"
@@ -154,8 +160,10 @@ class ViewController: UIViewController {
     
     @IBAction func decimalPoint(_ sender: UIButton) {
         if isResult || (!isResult && !isDouble) {
+            // is it  the first time decimalPoint is pressed while inputing a double, if not, ignore
             if isCalculating {
                 numberOnScreen = 0.0 // Is this OK?
+                // input doubles which absolute values are less than 1, so no need to press 0 before
             }
             isCalculating = false
             isDouble = true
