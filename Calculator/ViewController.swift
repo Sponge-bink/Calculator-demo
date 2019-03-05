@@ -20,17 +20,18 @@ class ViewController: UIViewController {
         didSet {
             if isResult, numberOnScreen == Double(Int(numberOnScreen)) {
                 display.text = String(Int(numberOnScreen))
+                // Int results stored in a double will be converted to Int and displayed on screen
             }
-                //            else if isDouble, isRightAfterPoint {
-                //                display.text = stringOnScreen! + "."
-                //            }
             else if isResult {
                 display.text = stringOnScreen
+                // Double results will be displayed directly
             }
             else if isDouble {
                 display.text = stringOnScreen
+                // User inputing double, display directly
             } else {
                 display.text = String(Int(numberOnScreen))
+                // Use inputing Ints, convert them
             }
             // really messy around here…
         }
@@ -50,7 +51,7 @@ class ViewController: UIViewController {
     
     var isDouble: Bool = false
     
-    var isRightAfterPoint = false
+    var isRightAfterDecimalPoint = false
     
     var operation: String?
     
@@ -65,9 +66,9 @@ class ViewController: UIViewController {
             isResult = false
             numberOnScreen = 0.0 + Double(sender.currentTitle!)! / 10
         } else if !isResult, isDouble {
-            if isRightAfterPoint {
+            if isRightAfterDecimalPoint {
                 numberOnScreen = numberOnScreen + Double(sender.currentTitle!)! / 10
-                isRightAfterPoint = false
+                isRightAfterDecimalPoint = false
             } else {
                 stringOnScreen = stringOnScreen! + sender.currentTitle!
             }
@@ -105,7 +106,7 @@ class ViewController: UIViewController {
             isCalculating = true
             previousNumberOrResult = numberOnScreen
             isDouble = false
-            isRightAfterPoint = false
+            isRightAfterDecimalPoint = false
             operation = newOperation
         } else {
             switch sender.currentTitle {
@@ -124,7 +125,7 @@ class ViewController: UIViewController {
         numberOnScreen = 0.0
         isCalculating = false
         isDouble = false
-        isRightAfterPoint = false
+        isRightAfterDecimalPoint = false
         operation = nil
     }
     
@@ -158,7 +159,7 @@ class ViewController: UIViewController {
             }
             isCalculating = false
             isDouble = true
-            isRightAfterPoint = true
+            isRightAfterDecimalPoint = true
             isResult = false
         }
         // something supposed to be done here?
