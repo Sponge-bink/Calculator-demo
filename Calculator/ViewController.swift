@@ -62,7 +62,13 @@ class ViewController: UIViewController {
     
     var isDouble: Bool = false
     
-    var isRightAfterDecimalPoint = false
+    var isRightAfterDecimalPoint = false {
+        didSet {
+            if isRightAfterDecimalPoint {
+                display.text = display.text! + "."
+            }
+        }
+    }
     
     var operation: String?
     
