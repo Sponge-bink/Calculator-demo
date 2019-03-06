@@ -16,6 +16,17 @@ class ViewController: UIViewController {
         // Do any additional setup after loading the view, typically from a nib.
     }
     
+    func switchOnTitles(buttonCurrentTitle: String) -> String? {
+        switch buttonCurrentTitle {
+        case "+": return "Plus"
+        case "−": return "Minus"
+        case "×": return "Multiply"
+        case "÷": return "Divide"
+        default: return nil
+        }
+    }
+    // geting names of operations for every button current tiltes for funcs
+    
     var stringOnScreen: String? = "0" {
         didSet {
             if isResult, numberOnScreen == Double(Int(numberOnScreen)) {
@@ -87,13 +98,7 @@ class ViewController: UIViewController {
         
         if !isCalculating {
             // no need to do operation correction
-            switch sender.currentTitle {
-                case "×": newOperation = "Multiply"
-                case "−": newOperation = "Minus"
-                case "+": newOperation = "Plus"
-                case "÷": newOperation = "Divide"
-                default: break
-            }
+            newOperation = switchOnTitles(buttonCurrentTitle: sender.currentTitle!)!
             if operation != nil {
                 // not the first operation in a equation, do math with the old operation
                 if operation! == "Multiply" {
@@ -115,13 +120,7 @@ class ViewController: UIViewController {
             // record the newly pressed button to be used next time. used in long equations
         } else {
             // fundamentalOperationButtons pushed when isCalculating == true. operation correction, by pressing the correct button right after the wrong one
-            switch sender.currentTitle {
-                case "×": operation = "Multiply"
-                case "−": operation = "Minus"
-                case "+": operation = "Plus"
-                case "÷": operation = "Divide"
-                default: break
-            }
+            operation = switchOnTitles(buttonCurrentTitle: sender.currentTitle!)!
         }
     }
     
