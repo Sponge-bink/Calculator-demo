@@ -92,8 +92,8 @@ class ViewController: UIViewController {
         if !isResult, isDouble {
             numberOnScreen = Double(stringOnScreen!)!
         }
-        // inputing double will be handled by adding directly to stringOnString, and end with fundamentalOperationButtons or equals etc
-        
+        // inputing double will be handled by adding directly to stringOnString, and this is to end with fundamentalOperationButtons or equals etc
+
         var newOperation: String = ""
         
         if !isCalculating {
@@ -138,6 +138,7 @@ class ViewController: UIViewController {
         if !isResult, isDouble {
             numberOnScreen = Double(stringOnScreen!)!
         }
+        // inputing double will be handled by adding directly to stringOnString, and this is to end with fundamentalOperationButtons or equals etc
         isResult = true
         if operation != nil {
             if operation! == "Multiply" {
@@ -171,8 +172,14 @@ class ViewController: UIViewController {
         }
         // something supposed to be done here?
     }
-//    @IBAction func minusOrNot(_ sender: UIButton) {
-//        numberOnScreen = -numberOnScreen
-//    }
+    @IBAction func minusOrNot(_ sender: UIButton) {
+        if !isResult && !isCalculating && !isRightAfterDecimalPoint {
+            if isDouble {
+                numberOnScreen = Double(stringOnScreen!)!
+            }
+            // inputing double will be handled by adding directly to stringOnString, and this is to end with fundamentalOperationButtons or equals etc
+            numberOnScreen = -numberOnScreen
+        }
+    }
 }
 
