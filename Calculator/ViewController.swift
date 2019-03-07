@@ -27,6 +27,14 @@ class ViewController: UIViewController {
     }
     // geting names of operations for every button current tiltes for funcs
     
+    
+//    func addComma(for numberInString: String, isInt: Bool) -> String {
+//        var stringToReturn = numberInString
+//        if isInt {
+//
+//        }
+//    }
+    
     var stringOnScreen: String? = "0" {
         didSet {
             if isResult, numberOnScreen == Double(Int(numberOnScreen)) {
@@ -194,3 +202,12 @@ class ViewController: UIViewController {
     }
 }
 
+extension Int {
+    var commaIndex: [Int]? {
+        if String(self).count < 4 {
+            return nil
+        } else {
+            return Array(stride(from: String(self).count - 3, to: 0, by: -3)).reversed()
+        }
+    }
+}
