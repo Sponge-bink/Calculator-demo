@@ -53,6 +53,7 @@ class ViewController: UIViewController {
             if !numberOnScreen.isInfinite && !numberOnScreen.isNaN {
                 stringOnScreen = String(numberOnScreen)
             } else {
+                clear()
                 display.text = "Error"
             }
         }
@@ -134,7 +135,7 @@ class ViewController: UIViewController {
         }
     }
     
-    @IBAction func clear(_ sender: UIButton) {
+    @IBAction func clear() {
         isResult = true
         previousNumberOrResult = nil
         numberOnScreen = 0.0
