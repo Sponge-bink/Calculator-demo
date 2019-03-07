@@ -50,7 +50,11 @@ class ViewController: UIViewController {
     
     var numberOnScreen: Double = 0.0 {
         didSet {
-            stringOnScreen = String(numberOnScreen)
+            if !numberOnScreen.isInfinite && !numberOnScreen.isNaN {
+                stringOnScreen = String(numberOnScreen)
+            } else {
+                display.text = "Error"
+            }
         }
     }
     
