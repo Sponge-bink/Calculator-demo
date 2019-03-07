@@ -28,28 +28,37 @@ class ViewController: UIViewController {
     // geting names of operations for every button current tiltes for funcs
     
     
-//    func addComma(for numberInString: String, isInt: Bool) -> String {
-//        var stringToReturn = numberInString
-//        if isInt {
-//
-//        }
-//    }
+    func addComma(for numberInString: String, isInt: Bool) -> String {
+        var stringToReturn = numberInString
+        if isInt, Int(numberInString)!.commaIndex != nil {
+            for indexes in Int(numberInString)!.commaIndex!.reversed() {
+                stringToReturn.insert(",", at: stringToReturn.index(stringToReturn.startIndex, offsetBy: indexes))
+            }
+        } else {
+            if let indexOfTheDecimalPoint = numberInString.index(of: ".") {
+                let theDecimalPointAndStringAfterIt: String.SubSequence? = numberInString[indexOfTheDecimalPoint...]
+                return addComma(for: String(Int(Double(numberInString)!)), isInt: true) + String(theDecimalPointAndStringAfterIt!)
+            }
+        }
+        return stringToReturn
+    }
+    // comments wanted for this func
     
     var stringOnScreen: String? = "0" {
         didSet {
             if isResult, numberOnScreen == Double(Int(numberOnScreen)) {
-                display.text = String(Int(numberOnScreen))
+                display.text = addComma(for: String(Int(numberOnScreen)), isInt: true)
                 // Int results stored in a double will be converted to Int and displayed on screen
             }
             else if isResult {
-                display.text = stringOnScreen
+                display.text = addComma(for: stringOnScreen!, isInt: false)
                 // Double results will be displayed directly
             }
             else if isDouble {
-                display.text = stringOnScreen
+                display.text = addComma(for: stringOnScreen!, isInt: false)
                 // User inputing double, display directly
             } else {
-                display.text = String(Int(numberOnScreen))
+                display.text = addComma(for: String(Int(numberOnScreen)), isInt: true)
                 // Use inputing Ints, convert them
             }
             // really messy around here…
