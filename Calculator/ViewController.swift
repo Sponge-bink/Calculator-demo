@@ -213,10 +213,19 @@ class ViewController: UIViewController {
 
 extension Int {
     var commaIndex: [Int]? {
-        if String(self).count < 4 {
-            return nil
+        if self > 0 {
+            if String(self).count < 4 {
+                return nil
+            } else {
+                return Array(stride(from: String(self).count - 3, to: 0, by: -3)).reversed()
+            }
+        } else if self < 0 {
+            return (-self).commaIndex!.map { number in
+                return number + 1
+            }
         } else {
-            return Array(stride(from: String(self).count - 3, to: 0, by: -3)).reversed()
+            return nil
         }
     }
 }
+// comment needed
