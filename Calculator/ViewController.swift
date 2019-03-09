@@ -218,10 +218,9 @@ extension Int {
         if self > 0 || self == 0 {
             if String(self).count < 4 {
                 return nil
-            } else {
+            }
                 return Array(stride(from: String(self).count - 3, to: 0, by: -3)).reversed()
                 // the first comma always appear before the third digit from the decimal point, reversing makes it easy to get
-            }
         } else {
             if String(self).count < 5 {
                 return nil
