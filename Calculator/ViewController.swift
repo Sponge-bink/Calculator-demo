@@ -34,7 +34,7 @@ class ViewController: UIViewController {
         if isInt, Int(numberInString)!.commaIndex != nil {
             for indexes in Int(numberInString)!.commaIndex!.reversed() {
                 stringToReturn.insert(",", at: stringToReturn.index(stringToReturn.startIndex, offsetBy: indexes))
-                // insert "," from the end of the array, so it won't change the smaller indexes's correctness
+                // insert "," from the end of the commaIndex array, so it won't change the smaller indexes's correctness
             }
         } else {
             if let indexOfTheDecimalPoint = numberInString.index(of: ".") {
@@ -215,19 +215,18 @@ class ViewController: UIViewController {
 
 extension Int {
     var commaIndex: [Int]? {
-        if self > 0 || self == 0 {
-            if String(self).count < 4 {
-                return nil
-            }
+        if String(self).filter({ !"-".contains($0) }).count < 4 {
+            // counting digits in Int stored in String (excluding "-"
+            return nil
+        } else {
+            if self > 0 {
                 return Array(stride(from: String(self).count - 3, to: 0, by: -3)).reversed()
                 // the first comma always appear before the third digit from the decimal point, reversing makes it easy to get
-        } else {
-            if String(self).count < 5 {
-                return nil
-            }
-            return (-self).commaIndex!.map { number in
-                return number + 1
-                // add 1 to all indexes cus now "-" is being counted in
+            } else {
+                return (-self).commaIndex!.map { number in
+                    return number + 1
+                    // add 1 to all indexes cus now "-" is being counted in
+                }
             }
         }
     }
