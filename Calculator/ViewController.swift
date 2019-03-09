@@ -223,6 +223,9 @@ extension Int {
                 // the first comma always appear before the third digit from the decimal point, reversing makes it easy to get
             }
         } else {
+            if String(self).count < 5 {
+                return nil
+            }
             return (-self).commaIndex!.map { number in
                 return number + 1
                 // add 1 to all indexes cus now "-" is being counted in
