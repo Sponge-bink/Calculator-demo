@@ -75,6 +75,11 @@ class ViewController: UIViewController {
                 clear()
                 display.text = "Error"
             }
+            if String(numberOnScreen).filter({"0123456789".contains($0)}).count > 14 && !isResult {
+                isOverflowed = true
+            } else {
+                isOverflowed = false
+            }
         }
     }
     
@@ -94,27 +99,32 @@ class ViewController: UIViewController {
         }
     }
     
+    var isOverflowed = false
+    
     var operation: String?
     
     @IBOutlet weak var display: UILabel!
     
     @IBAction func numberButtons(_ sender: UIButton) {
-        isCalculating = false
-        if isResult,!isDouble {
-            isResult = false
-            numberOnScreen = Double(sender.currentTitle!)!
-        } else if isResult, isDouble {
-            isResult = false
-            numberOnScreen = 0.0 + Double(sender.currentTitle!)! / 10
-        } else if !isResult, isDouble {
-            if isRightAfterDecimalPoint {
-                numberOnScreen = numberOnScreen + Double(sender.currentTitle!)! / 10
-                isRightAfterDecimalPoint = false
-            } else {
-                stringOnScreen = stringOnScreen! + sender.currentTitle!
+        if isOverflowed && !isCalculating {
+        } else {
+            isCalculating = false
+            if isResult,!isDouble {
+                isResult = false
+                numberOnScreen = Double(sender.currentTitle!)!
+            } else if isResult, isDouble {
+                isResult = false
+                numberOnScreen = 0.0 + Double(sender.currentTitle!)! / 10
+            } else if !isResult, isDouble {
+                if isRightAfterDecimalPoint {
+                    numberOnScreen = numberOnScreen + Double(sender.currentTitle!)! / 10
+                    isRightAfterDecimalPoint = false
+                } else {
+                    stringOnScreen = stringOnScreen! + sender.currentTitle!
+                }
+            } else if !isResult, !isDouble {
+                numberOnScreen = Double(String(Int(numberOnScreen)) + sender.currentTitle!)!
             }
-        } else if !isResult, !isDouble {
-            numberOnScreen = Double(String(Int(numberOnScreen)) + sender.currentTitle!)!
         }
     }
     
@@ -162,6 +172,7 @@ class ViewController: UIViewController {
         isDouble = false
         isRightAfterDecimalPoint = false
         operation = nil
+        isOverflowed = false
     }
     
     @IBAction func equals(_ sender: UIButton) {
