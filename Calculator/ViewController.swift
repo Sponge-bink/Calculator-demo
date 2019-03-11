@@ -110,6 +110,7 @@ class ViewController: UIViewController {
     
     @IBAction func numberButtons(_ sender: UIButton) {
         if isOverflowed && !isCalculating {
+            // don't run when overflowed and appending digit (but has to run when overflowed and calculating - new number
         } else {
             isCalculating = false
             if isResult,!isDouble {
@@ -130,7 +131,6 @@ class ViewController: UIViewController {
             }
         }
     }
-    // comments needed for this func
     
     @IBAction func fundamentalOperationButtons(_ sender: UIButton) {
         if !isResult, isDouble {
@@ -163,8 +163,8 @@ class ViewController: UIViewController {
             operation = newOperation
             // record the newly pressed button to be used next time. used in long equations
         } else {
-            // fundamentalOperationButtons pushed when isCalculating == true. operation correction, by pressing the correct button right after the wrong one
             operation = switchOnTitles(buttonCurrentTitle: sender.currentTitle!)!
+            // fundamentalOperationButtons pushed when isCalculating == true. operation correction, by pressing the correct button right after the wrong one
         }
     }
     
@@ -205,7 +205,7 @@ class ViewController: UIViewController {
     
     @IBAction func decimalPoint(_ sender: UIButton) {
         if isResult || (!isResult && !isDouble) {
-            // is it  the first time decimalPoint is pressed while inputing a double, if not, ignore
+            // is it the first time decimalPoint is pressed while inputing a double, if not, ignore
             if isCalculating {
                 numberOnScreen = 0.0 // Is this OK?
                 // input doubles which absolute values are less than 1, so no need to press 0 before
