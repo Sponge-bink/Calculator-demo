@@ -70,12 +70,14 @@ class ViewController: UIViewController {
     var numberOnScreen: Double = 0.0 {
         didSet {
             if !numberOnScreen.isInfinite && !numberOnScreen.isNaN {
+                // display error when the result is infinite or NaN
                 stringOnScreen = String(numberOnScreen)
             } else {
                 clear()
                 display.text = "Error"
             }
             if String(numberOnScreen).filter({"0123456789".contains($0)}).count > 14 && !isResult {
+                // can handle no more than 14 digits in an input
                 isOverflowed = true
             } else {
                 isOverflowed = false
@@ -95,6 +97,7 @@ class ViewController: UIViewController {
         didSet {
             if isRightAfterDecimalPoint {
                 display.text = display.text! + "."
+                // directly set display.text when . pressede for the first time
             }
         }
     }
@@ -127,6 +130,7 @@ class ViewController: UIViewController {
             }
         }
     }
+    // comments needed for this func
     
     @IBAction func fundamentalOperationButtons(_ sender: UIButton) {
         if !isResult, isDouble {
